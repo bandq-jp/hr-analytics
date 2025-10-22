@@ -5,7 +5,7 @@ from typing import Any, Dict, Iterable, List, Optional
 import httpx
 from supabase import Client, create_client
 
-from app.config import Settings
+from config import Settings
 
 
 class SupabaseTableConfig:

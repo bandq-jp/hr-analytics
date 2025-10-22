@@ -66,3 +66,8 @@ variable "project_services" {
   description = "Map of enabled project services."
   type        = any
 }
+
+variable "private_vpc_connection" {
+  description = "Private VPC connection for Cloud SQL."
+  type        = any
+}

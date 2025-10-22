@@ -5,7 +5,7 @@ from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 from psycopg import sql
 
-from app.infrastructure.database import DatabasePool
+from infrastructure.database import DatabasePool
 
 
 @dataclass(frozen=True)

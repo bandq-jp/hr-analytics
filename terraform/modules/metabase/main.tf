@@ -56,6 +56,7 @@ resource "google_cloud_run_v2_service" "metabase" {
 
   template {
     service_account = google_service_account.metabase.email
+    timeout         = "900s"
 
     scaling {
       min_instance_count = 0
@@ -70,6 +71,28 @@ resource "google_cloud_run_v2_service" "metabase" {
           cpu    = "2"
           memory = "2048Mi"
         }
+      }
+
+      startup_probe {
+        http_get {
+          path = "/api/health"
+          port = 8080
+        }
+        initial_delay_seconds = 30
+        timeout_seconds       = 10
+        period_seconds        = 10
+        failure_threshold     = 10
+      }
+
+      liveness_probe {
+        http_get {
+          path = "/api/health"
+          port = 8080
+        }
+        initial_delay_seconds = 60
+        timeout_seconds       = 10
+        period_seconds        = 30
+        failure_threshold     = 3
       }
 
       env {
@@ -106,6 +129,12 @@ resource "google_cloud_run_v2_service" "metabase" {
           }
         }
       }
+
+      env {
+        name  = "MB_JETTY_PORT"
+        value = "8080"
+      }
+
     }
 
     vpc_access {

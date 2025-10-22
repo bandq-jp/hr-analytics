@@ -4,10 +4,10 @@ import logging
 from pathlib import Path
 from typing import Dict, Iterable, List
 
-from app.clients.supabase_client import SupabaseFetcher, SupabaseTableConfig
-from app.config import Settings, get_settings
-from app.infrastructure.database import DatabasePool
-from app.repositories.warehouse import TableSyncConfig, WarehouseRepository
+from clients.supabase_client import SupabaseFetcher, SupabaseTableConfig
+from config import Settings, get_settings
+from infrastructure.database import DatabasePool
+from repositories.warehouse import TableSyncConfig, WarehouseRepository
 
 logger = logging.getLogger(__name__)
 

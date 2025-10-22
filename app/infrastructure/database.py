@@ -5,7 +5,7 @@ from typing import Iterator, Optional
 
 from psycopg_pool import ConnectionPool
 
-from app.config import Settings
+from config import Settings
 
 
 class DatabasePool:

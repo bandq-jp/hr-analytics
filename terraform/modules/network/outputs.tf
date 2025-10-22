@@ -17,3 +17,8 @@ output "connector_id" {
   description = "ID of the VPC Access connector."
   value       = google_vpc_access_connector.serverless.id
 }
+
+output "private_vpc_connection" {
+  description = "Private VPC connection for Cloud SQL."
+  value       = google_service_networking_connection.private_vpc_connection
+}

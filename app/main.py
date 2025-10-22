@@ -7,7 +7,7 @@ from typing import Dict, List
 from fastapi import FastAPI, HTTPException
 from fastapi.concurrency import run_in_threadpool
 
-from app.services.pipeline import PipelineService, build_pipeline_service
+from services.pipeline import PipelineService, build_pipeline_service
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -30,8 +30,14 @@ def get_pipeline() -> PipelineService:
 
 @app.on_event("startup")
 def startup_event() -> None:
-    logger.info("Initialising pipeline service")
-    app.state.pipeline = build_pipeline_service()
+    try:
+        logger.info("Initialising pipeline service")
+        app.state.pipeline = build_pipeline_service()
+        logger.info("Pipeline service initialised successfully")
+    except Exception as e:
+        logger.error(f"Failed to initialise pipeline service: {e}")
+        # Don't raise the exception to allow the app to start
+        # The pipeline will be None and endpoints will return 503
 
 
 @app.on_event("shutdown")
@@ -44,7 +50,10 @@ def shutdown_event() -> None:
 
 @app.get("/healthz")
 async def healthcheck() -> Dict[str, str]:
-    return {"status": "ok"}
+    pipeline: PipelineService | None = getattr(app.state, "pipeline", None)
+    if pipeline is None:
+        return {"status": "starting", "pipeline": "not_ready"}
+    return {"status": "ok", "pipeline": "ready"}
 
 
 @app.post("/ingest/run")

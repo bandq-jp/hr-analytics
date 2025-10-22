@@ -74,6 +74,7 @@ module "database" {
   database_tier               = var.database_tier
   enable_deletion_protection  = var.enable_deletion_protection
   project_services            = google_project_service.enabled
+  private_vpc_connection      = module.network.private_vpc_connection
 }
 
 

@@ -36,7 +36,7 @@ resource "google_sql_database_instance" "app" {
 
   deletion_protection = var.enable_deletion_protection
 
-  depends_on = [var.project_services]
+  depends_on = [var.project_services, var.private_vpc_connection]
 }
 
 resource "google_sql_database" "analytics" {
