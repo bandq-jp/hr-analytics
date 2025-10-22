@@ -1,0 +1,20 @@
+# GCP Project Configuration
+project_id = "your-gcp-project-id"
+
+# Container Images
+app_image = "gcr.io/your-project/ha-app:latest"
+
+# Database Configuration
+database_password           = "your-secure-database-password"
+metabase_database_password  = "your-secure-metabase-password"
+
+# Supabase Configuration
+supabase_url                = "https://your-project.supabase.co"
+supabase_service_role_key   = "your-supabase-service-role-key"
+
+# Optional: Override defaults
+# region = "asia-northeast1"
+# database_tier = "db-custom-1-3840"
+# enable_deletion_protection = false
+# vpc_cidr = "10.90.0.0/24"
+# connector_cidr = "10.8.0.0/28"
