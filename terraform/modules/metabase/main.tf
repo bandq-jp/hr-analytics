@@ -52,7 +52,7 @@ resource "google_cloud_run_v2_service" "metabase" {
 
   name     = "ha-metabase"
   location = var.region
-  ingress  = "INGRESS_TRAFFIC_INTERNAL_ONLY"
+  ingress  = "INGRESS_TRAFFIC_ALL"
 
   template {
     service_account = google_service_account.metabase.email
@@ -146,4 +146,14 @@ resource "google_cloud_run_v2_service" "metabase" {
   depends_on = [
     google_secret_manager_secret_version.metabase_db_password,
   ]
+}
+
+resource "google_cloud_run_v2_service_iam_member" "metabase_public" {
+  project  = var.project_id
+  location = var.region
+  name     = google_cloud_run_v2_service.metabase.name
+  role     = "roles/run.invoker"
+  member   = "allUsers"
+
+  depends_on = [google_cloud_run_v2_service.metabase]
 }

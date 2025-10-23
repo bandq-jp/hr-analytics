@@ -4,7 +4,7 @@ output "app_service_url" {
 }
 
 output "metabase_service_url" {
-  description = "Private URL for the Metabase service."
+  description = "Public URL for the Metabase service."
   value       = module.metabase.metabase_service_url
 }
 
