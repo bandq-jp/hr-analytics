@@ -141,6 +141,8 @@ def build_pipeline_service() -> PipelineService:
     settings = get_settings()
     pool = DatabasePool(settings)
     pool.open()
-    fetcher = SupabaseFetcher(settings)
+    # Temporarily disable SupabaseFetcher due to proxy parameter error
+    # fetcher = SupabaseFetcher(settings)
+    fetcher = None  # type: ignore
     warehouse = WarehouseRepository(pool)
     return PipelineService(settings, pool, fetcher, warehouse)

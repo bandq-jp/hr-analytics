@@ -48,6 +48,11 @@ def shutdown_event() -> None:
         logger.info("Pipeline service shutdown complete")
 
 
+@app.get("/")
+async def root() -> Dict[str, str]:
+    return {"message": "Hiring Analytics Pipeline API", "version": "0.1.0"}
+
+
 @app.get("/healthz")
 async def healthcheck() -> Dict[str, str]:
     pipeline: PipelineService | None = getattr(app.state, "pipeline", None)
